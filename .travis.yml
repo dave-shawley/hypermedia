@@ -1,0 +1,20 @@
+language: python
+python:
+- 2.7
+- 3.3
+- 3.4
+- pypy
+install:
+- pip install -r requirements.txt -r test-requirements.txt
+script:
+- nosetests
+deploy:
+  provider: pypi
+  distributions: "sdist bdist_wheel"
+  user: daveshawley
+  password:
+    secure: Db9CJH2bRO7ZnsngkkndeD/aocFgbcVdb5lh+awuONtAzWusaqmGYWNjGCS9aWgg/bmKDjhE9VuMa39ryDlyp4wUO0RShyaBhG0uVPr0rRdhf1J7t72je2QsTc8yu7jV6L7Uno8O3vVMqUruYBEz/6ULoA5q7G327JDv2+03kYo=
+  on:
+    tags: true
+    all_branches: true
+    python: 3.4
