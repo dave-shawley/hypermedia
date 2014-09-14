@@ -1,7 +1,7 @@
 hypermedia
 ==========
 
-*"REST APIs must be hypertext-driven"*, Roy T. Fielding
+    *"REST APIs must be hypertext-driven"*, Roy T. Fielding
 
 |Version| |Downloads| |Status| |License|
 
@@ -26,13 +26,9 @@ architectural principles, I leave that to `Dr. Fielding`_.  This library
 attempts to provide a few mechanisms to make developing RESTful protocols
 simpler.
 
-.. Random notes for geeks that read the ReST source
-.. "Hypermedia is defined by the presence of application control
-.. information embedded within, or as a layer above, the presentation
-.. of information." - Roy T. Fielding.
-..
-.. RFC-5988: Link Header
-.. RFC-6570: URI Template
+    *"Hypermedia is defined by the presence of application control
+    information embedded within, or as a layer above, the presentation
+    of information."* - Roy T. Fielding.
 
 What?
 -----
@@ -73,7 +69,7 @@ Jim Webber's most excellent `REST in Practice`_.  Here is a brief recap:
    is where most RESTful APIs stop.
 
 *Level Three: Hypermedia Controls*
-   
+
    This is where the seldom understood and inpronouncable term `HATEOAS`_
    shows up.  Instead of the URL being formulated by the user of the
    service based on what they want to do and some URL pattern syntax, the
@@ -89,7 +85,7 @@ lets you write code like::
 
 
    class PersonHandler(mixins.Linker, web.RequestHandler):
-      
+
       def get(self, uid):
          person = get_person_information(uid)
          self.add_link('related-shows', SearchHandler, 'GET',
