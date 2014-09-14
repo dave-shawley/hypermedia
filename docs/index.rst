@@ -3,5 +3,6 @@
 .. toctree::
    :hidden:
 
+   api
    hacking
    changelog

@@ -89,9 +89,9 @@ lets you write code like::
       def get(self, uid):
          person = get_person_information(uid)
          self.add_link('related-shows', SearchHandler, 'GET',
-                       person_id=uid, type='shows')
+                       query={'person_id': uid, 'type': 'shows'})
          self.add_link('related-movies', SearchHandler, 'GET',
-                       person_id=uid, type='movies')
+                       query={'person_id': uid, 'type':'movies'})
          self.add_link('add-comment', CommentHandler, 'POST', uid=uid)
          self.add_link('comments', CommentHandler, 'GET', uid=uid)
 

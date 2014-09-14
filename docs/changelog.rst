@@ -4,4 +4,4 @@ Changelog
 Next Release
 ------------
 
-  - Create something amazing
+- :class:`hypermedia.tornado.mixins.Linker` added
