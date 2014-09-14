@@ -1,6 +1,7 @@
 Changelog
----------
+=========
 
-* Next Release
+Next Release
+------------
 
   - Create something amazing
