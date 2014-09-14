@@ -1,3 +1,5 @@
+#!/usr/bin/env python
+#
 import codecs
 import setuptools
 import sys
@@ -27,6 +29,10 @@ if sys.version_info < (2, 7):
 if sys.version_info < (3, ):
     test_requirements.append('mock>1.0,<2')
 
+extra_requirements = {
+    'tornado': ['tornado>=4,<5'],
+}
+
 
 with codecs.open('README.rst', 'rb', encoding='utf-8') as file_obj:
     long_description = '\n' + file_obj.read()
@@ -46,6 +52,7 @@ setuptools.setup(
     install_requires=install_requirements,
     test_suite='nose.collector',
     tests_require=test_requirements,
+    extras_require=extra_requirements,
     classifiers=[
         'Intended Audience :: Developers',
         'License :: OSI Approved :: BSD License',
