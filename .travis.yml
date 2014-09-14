@@ -6,6 +6,7 @@ python:
 - pypy
 install:
 - pip install -r requirements.txt -r test-requirements.txt
+- pip install 'hypermedia[tornado]'
 script:
 - nosetests
 deploy:
