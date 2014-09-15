@@ -158,12 +158,9 @@ class Linker(object):
         :raises tornado.web.HTTPError: if no handler is found
 
         """
-        # TODO locate appropriate host handler (-1 => "catch all" Host)
-        # TODO see self.application._get_host_handlers
         for host_patn, host_handlers in self.application.handlers:
-            # TODO virtual host support
-            # if host_patn.match(self.request.host) is None:
-            #     continue
+            if host_patn.match(self.request.host) is None:
+                continue
             for urlspec in host_handlers:
                 if urlspec.handler_class == cls:
                     return urlspec

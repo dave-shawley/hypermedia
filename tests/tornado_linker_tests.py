@@ -23,6 +23,12 @@ app = web.Application([
     (r'/movie/(?P<uid>\d+)', MovieHandler),
     (r'/search', SearchHandler),
 ])
+app.add_handlers(r'98\.139\.180\.149', [
+    (r'/yahoo/(?P<uid>\d+)', CommentHandler),
+])
+app.add_handlers(r'65\.199\.32\.155', [
+    (r'/google/(?P<uid>\d+)', CommentHandler),
+])
 
 
 class RequestTestMixin(object):
@@ -104,3 +110,24 @@ class WhenAddingLinkToNonexistentHandler(RequestTestMixin, unittest.TestCase):
     def test_that_internal_error_is_raised(self):
         with self.assertRaises(web.HTTPError):
             self.handler.add_link('whaeva', web.RequestHandler, 'GET')
+
+
+class WhenAddingLinkFromSpecificVirtualHost(
+        RequestTestMixin, unittest.TestCase):
+
+    def setUp(self):
+        super(WhenAddingLinkFromSpecificVirtualHost, self).setUp()
+        self.handler = MovieHandler(
+            app,
+            self.create_request('GET', '/movie/1',
+                                headers={'Host': '65.199.32.155'})
+        )
+        self.handler.add_link('add-comment', CommentHandler, 'POST', uid=1)
+
+    def test_that_generated_link_has_correct_host(self):
+        print('handlers', app.handlers)
+        print('get_link_map', self.handler.get_link_map())
+        generated_link = compat.urlsplit(
+            self.handler.get_link_map()['add-comment']['url'])
+        print('generated_link', generated_link)
+        self.assertEqual(generated_link.netloc, '65.199.32.155')
