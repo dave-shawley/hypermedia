@@ -132,7 +132,8 @@ class Linker(object):
         :param kwargs: parameters to substitute into the handler's path
 
         :raises tornado.web.HTTPError: if ``handler`` is not registered
-            for the currently active host
+            for the currently active host or a path parameter is omitted
+            from ``kwargs``
 
         """
         matched_spec = self._find_handler_for_class(handler)
@@ -174,14 +175,20 @@ class Linker(object):
         :param tornado.web.URLSpec urlspec:
         :param dict path_kwargs:
         :return: the constructed relative path as a ``str``
+        :raises tornado.web.HTTPError: if a path parameter from
+            ``urlspec`` is not present in ``path_kwargs``
 
         """
         regex = urlspec.regex
         arg_list = [None for _ in range(regex.groups)]
         for arg_name, arg_index in regex.groupindex.items():
-            arg_list[arg_index - 1] = path_kwargs.pop(arg_name)
-
-        # TODO raise if any(lambda x: x is None, arg_list)
+            try:
+                arg_list[arg_index - 1] = path_kwargs.pop(arg_name)
+            except KeyError:
+                raise web.HTTPError(
+                    500,
+                    log_message='Path parameter {0} omitted'.format(arg_name),
+                )
         return urlspec.reverse(*arg_list)
 
     @staticmethod

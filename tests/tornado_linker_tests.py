@@ -131,3 +131,18 @@ class WhenAddingLinkFromSpecificVirtualHost(
             self.handler.get_link_map()['add-comment']['url'])
         print('generated_link', generated_link)
         self.assertEqual(generated_link.netloc, '65.199.32.155')
+
+
+class WhenAddingLinkWithMissingParameter(RequestTestMixin, unittest.TestCase):
+
+    def setUp(self):
+        super(WhenAddingLinkWithMissingParameter, self).setUp()
+        self.handler = MovieHandler(
+            app,
+            self.create_request('GET', '/movie/1',
+                                headers={'Host': '10.0.0.1:8080'}),
+        )
+
+    def test_that_internal_error_is_raised(self):
+        with self.assertRaises(web.HTTPError):
+            self.handler.add_link('add-comment', CommentHandler, 'POST')
