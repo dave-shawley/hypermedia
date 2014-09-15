@@ -34,8 +34,11 @@ app.add_handlers(r'65\.199\.32\.155', [
 class RequestTestMixin(object):
 
     def create_request(self, method, uri, headers=None):
+        # Setting X-Forwarded-For is necessary to make our tests
+        # work well with Tornado 3.x.  In 3.x, the remote_ip keyword
+        # to HTTPRequest
         context = mock.Mock(remote_ip='172.16.0.1', protocol='http')
-        request_headers = {}
+        request_headers = {'X-Forwarded-For': '172.16.0.1'}
         if headers is not None:
             request_headers.update(headers)
         return httpserver.HTTPRequest(
