@@ -144,8 +144,22 @@ class Linker(object):
 
         self.__link_map[name] = {'method': method, 'url': next_url}
 
+    def add_external_link(self, name, method, url, query=None):
+        """
+        Add a raw URL link.
+
+        :param str name: the name of the link to add
+        :param str method: the HTTP method for the link
+        :param str url: the URL to advertise
+        :param dict query: parameters for the URL query or ``None``
+
+        """
+        if query is not None:
+            url = self._rewrite_query(url, query)
+        self.__link_map[name] = {'method': method, 'url': url}
+
     def get_link_map(self):
-        """Return a ``dict`` containing the generated link map."""
+        """Return a :class:`dict` containing the generated link map."""
         return self.__link_map
 
     def _find_handler_for_class(self, cls):

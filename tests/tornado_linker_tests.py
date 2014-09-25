@@ -154,3 +154,36 @@ class WhenAddingLinkWithMissingParameter(unittest.TestCase):
     def test_that_internal_error_is_raised(self):
         with self.assertRaises(web.HTTPError):
             self.handler.add_link('add-comment', CommentHandler, 'POST')
+
+
+class WhenAddingExternalLink(unittest.TestCase):
+
+    def setUp(self):
+        super(WhenAddingExternalLink, self).setUp()
+        self.handler = MovieHandler(
+            app, create_request('GET', '/movies/1',
+                                headers={'Host': '10.10.10.10'}))
+        self.handler.add_external_link('github', 'GET',
+                                       'http://github.com/dave-shawley')
+
+    def test_that_external_link_is_included(self):
+        self.assertEqual(
+            self.handler.get_link_map()['github'],
+            {'method': 'GET', 'url': 'http://github.com/dave-shawley'},
+        )
+
+
+class WhenAddingExternalLinkWithQuery(unittest.TestCase):
+
+    def setUp(self):
+        super(WhenAddingExternalLinkWithQuery, self).setUp()
+        self.handler = MovieHandler(
+            app, create_request('GET', '/movies/1',
+                                headers={'Host': '10.10.10.10'}))
+        self.handler.add_external_link('search', 'GET',
+                                       'http://www.google.com/',
+                                       query={'q': '"HATEOAS"'})
+
+    def test_that_query_is_encoded(self):
+        url = self.handler.get_link_map()['search']['url']
+        self.assertEqual(url, 'http://www.google.com/?q=%22HATEOAS%22')
