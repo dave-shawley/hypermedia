@@ -162,6 +162,17 @@ class Linker(object):
         """Return a :class:`dict` containing the generated link map."""
         return self.__link_map
 
+    def get_link_url(self, action_name):
+        """
+        Return a URL from the link map.
+
+        :param str action_name: the name of the action/link to look up
+        :returns: the URL mapped to `action_name`
+        :raises KeyError: if `action_name` is not in the map
+
+        """
+        return self.__link_map[action_name]['url']
+
     def _find_handler_for_class(self, cls):
         """
         Locate the :class:`tornado.web.URLSpec` for ``cls``.

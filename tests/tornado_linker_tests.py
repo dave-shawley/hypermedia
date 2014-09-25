@@ -106,8 +106,7 @@ class WhenAddingQueryLink(unittest.TestCase):
 
     @property
     def generated_link(self):
-        return compat.urlsplit(
-            self.handler.get_link_map()['find-actors']['url'])
+        return compat.urlsplit(self.handler.get_link_url('find-actors'))
 
     def test_that_link_path_is_correct(self):
         self.assertEqual(self.generated_link.path, '/search')
@@ -185,5 +184,7 @@ class WhenAddingExternalLinkWithQuery(unittest.TestCase):
                                        query={'q': '"HATEOAS"'})
 
     def test_that_query_is_encoded(self):
-        url = self.handler.get_link_map()['search']['url']
-        self.assertEqual(url, 'http://www.google.com/?q=%22HATEOAS%22')
+        self.assertEqual(
+            self.handler.get_link_url('search'),
+            'http://www.google.com/?q=%22HATEOAS%22',
+        )
