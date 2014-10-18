@@ -36,6 +36,15 @@ class CannotDetermineMethod(LinkAdvertisementFailure):
     parameter.
 
     """
+    def __init__(self, rule):
+        super(CannotDetermineMethod, self).__init__(rule)
+        self.failed_rule = rule
+
+    def __str__(self):
+        return (
+            'cannot determine method to advertise for {0!s}. You need '
+            'to specify the advertise_method keyword in this case.'
+        ).format(self.failed_rule)
 
 
 class MethodDoesNotExist(LinkAdvertisementFailure):
@@ -51,6 +60,14 @@ class MethodDoesNotExist(LinkAdvertisementFailure):
        :attr:`failed_rule`
 
     """
+    def __init__(self, rule, method):
+        super(MethodDoesNotExist, self).__init__(rule, method)
+        self.failed_rule = rule
+        self.specified_method = method
+
+    def __str__(self):
+        return '{0!s} does not support {1}'.format(
+            self.failed_rule, self.specified_method)
 
 
 class AlreadyAdvertised(LinkAdvertisementFailure):
@@ -69,3 +86,12 @@ class AlreadyAdvertised(LinkAdvertisementFailure):
        The name of the contentious link.
 
     """
+    def __init__(self, rule, existing_rule, link_name):
+        super(AlreadyAdvertised, self).__init__(existing_rule, link_name)
+        self.failed_rule = rule
+        self.existing_rule = existing_rule
+        self.link_name = link_name
+
+    def __str__(self):
+        return '{0} is already advertised as {1!s}'.format(
+            self.link_name, self.existing_rule)
