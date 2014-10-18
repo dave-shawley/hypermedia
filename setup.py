@@ -31,7 +31,7 @@ if sys.version_info < (3, ):
 
 extra_requirements = {
     'flask': ['flask>=0.10,<0.11'],
-    'tornado': ['tornado>=4,<5'],
+    'tornado': ['tornado>=3,<5'],
 }
 
 
