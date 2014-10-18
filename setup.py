@@ -30,6 +30,7 @@ if sys.version_info < (3, ):
     test_requirements.append('mock>1.0,<2')
 
 extra_requirements = {
+    'flask': ['flask>=0.10,<0.11'],
     'tornado': ['tornado>=4,<5'],
 }
 
@@ -58,7 +59,7 @@ setuptools.setup(
         'License :: OSI Approved :: BSD License',
         'Operating System :: OS Independent',
         'Programming Language :: Python',
-        'Framework :: Setuptools Plugin',
-        'Development Status :: 1 - Planning',
+        'Topic :: Internet :: WWW/HTTP :: Dynamic Content',
+        'Development Status :: 3 - Alpha',
     ],
 )

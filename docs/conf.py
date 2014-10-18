@@ -30,4 +30,5 @@ exclude_patterns = []
 intersphinx_mapping = {
     'python': ('http://docs.python.org/3/', None),
     'tornado': ('http://tornadoweb.org/en/branch4.0', None),
+    'flask': ('http://flask.pocoo.org/docs/0.10', None),
 }
