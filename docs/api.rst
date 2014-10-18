@@ -37,9 +37,24 @@ by the :class:`flask_hypermedia.LinkMap` instance.
     def creator():
         pass
 
-    @app.route('/', advertise_as='put-thingy', methods=['PUT'])
-    def setter():
+    @app.route('/<id>', advertise_as='put-thingy', methods=['PUT'])
+    def setter(thingy_id):
         pass
+
+
+Each rule that you advertise is available by name from the
+:class:`flask_hypermedia.LinkMap` instance - ``linker`` in the previous
+example.  Assuming the application above, the following snippet shows
+what is available::
+
+    >>> linker['get-thingy']
+    {'rule': <Rule '/' (GET, OPTIONS, HEAD) -> getter>, 'method': 'GET'}
+    >>> linker['add-thingy']
+    {'rule': <Rule '/' (POST, OPTIONS) -> creator>, 'method': 'POST'}
+    >>> with app.test_request_context('/'):
+    ...    print(flask.url_for(linker['put-thingy']['rule'].endpoint, id=12))
+    ...
+    /12
 
 .. autoclass:: flask_hypermedia.LinkMap
    :members:

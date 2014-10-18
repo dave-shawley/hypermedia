@@ -5,6 +5,9 @@ Flask Hypermedia Exceptions.
   All other exceptions are sub-classes of this type.
 - ``CannotDetermineMethod``: the extension needs help advertising a
   particular rule.
+- ``MethodDoesNotExist``: you have tried to advertise a method that is
+  not supported by a particular rule.
+- ``AlreadyAdvertised``: you have advertised a rule twice.
 
 """
 
@@ -31,5 +34,38 @@ class CannotDetermineMethod(LinkAdvertisementFailure):
     is obvious which method to advertise, when it isn't you need
     to specify it explicitly using the ``advertise_method`` keyword
     parameter.
+
+    """
+
+
+class MethodDoesNotExist(LinkAdvertisementFailure):
+    """You specified a method that is not supported.
+
+    .. attribute:: failed_rule
+
+       The rule that is being advertised.
+
+    .. attribute:: specified_method
+
+       The method that was specified and is not supported by
+       :attr:`failed_rule`
+
+    """
+
+
+class AlreadyAdvertised(LinkAdvertisementFailure):
+    """You tried to advertise the same link twice.
+
+    .. attribute:: failed_rule
+
+       The rule that could not be advertised.
+
+    .. attribute:: existing_rule
+
+       The rule that is already advertised.
+
+    .. attribute:: link_name
+
+       The name of the contentious link.
 
     """
