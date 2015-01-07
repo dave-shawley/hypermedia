@@ -78,7 +78,7 @@ Jim Webber's most excellent `REST in Practice`_.  Here is a brief recap:
    shows up.  Instead of the URL being formulated by the user of the
    service based on what they want to do and some URL pattern syntax, the
    available actions are represented directly in the document as named
-   links.  See `REST APIs must by hypertext-driven <hypertext>`_ for a
+   links.  See `REST APIs must by hypertext-driven`_ for a
    well-written and relatively short rationale.
 
 That is the part of the story that this library attempts to fill.  It
@@ -140,7 +140,7 @@ Ok... Where?
 .. _Dr. Fielding: http://www.ics.uci.edu/~fielding/pubs/dissertation/top.htm
 .. _Flask: http://flask.pocoo.org
 .. _HATEOAS: http://www.slideshare.net/d0nn9n/jimwebber-rest
-.. _hypertext: http://roy.gbiv.com/untangled/2008/rest-apis-must-be-hypertext-driven
+.. _REST APIs must by hypertext-driven: http://roy.gbiv.com/untangled/2008/rest-apis-must-be-hypertext-driven
 .. _REST in Practice: http://www.amazon.com/gp/product/0596805829?ie=UTF8&tag=jimwebbesblog-20&linkCode=xm2&camp=1789&creativeASIN=0596805829
 .. _Richardson Maturity Model: http://www.crummy.com/writing/speaking/2008-QCon/act3.html
 .. _Tornado: http://tornadoweb.org
