@@ -82,7 +82,9 @@ Jim Webber's most excellent `REST in Practice`_.  Here is a brief recap:
    well-written and relatively short rationale.
 
 That is the part of the story that this library attempts to fill.  It
-lets you write code like::
+lets you write code like:
+
+.. code-block:: python
 
    from hypermedia.tornado import mixins
    from tornado import web
